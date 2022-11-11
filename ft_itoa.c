@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/07 14:45:37 by hel-kame          #+#    #+#             */
+/*   Updated: 2022/11/10 18:33:47 by hel-kame         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
+#include <stdio.h>
 
 int	nb_size(int n)
 {
@@ -27,7 +40,7 @@ char	*ft_itoa(int nb)
 	long	nbr;
 	int		i;
 
-	i = 0;
+	i = 1;
 	size = nb_size(nb);
 	str = (char *)malloc(sizeof(char) * size + 1);
 	if (!(str))
@@ -37,11 +50,12 @@ char	*ft_itoa(int nb)
 	nbr = nb;
 	if (nbr < 0)
 		nbr = -nbr;
-	str[size - i++] = '\0';
+	str[size - i] = '\0';
 	while (nbr >= 10)
 	{
-		str[size - i++] = (nbr % 10) + 48;
+		str[size - i] = (nbr % 10) + 48;
 		nbr /= 10;
+		i++;
 	}
 	str[size - i] = (nbr % 10) + 48;
 	return (str);

@@ -1,70 +1,116 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/25 11:36:27 by hel-kame          #+#    #+#             */
+/*   Updated: 2022/11/07 16:09:44 by hel-kame         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int	count_words(char const *s, char c)
+int	is_charset(const char *charset, char c)
 {
-	int		i;
-	int		word;
+	int	i;
 
 	i = 0;
-	word = 0;
-	while (s[i] != '\0')
+	while (charset[i] != '\0')
 	{
-		while (s[i] == c && s[i] != '\0')
+		if (charset[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	word_count(const char *str, char charset)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i] != '\0')
+	{
+		while (str[i] != '\0' && str[i] == charset)
 			i++;
-		if (s[i] != c && s[i] != '\0')
-			word++;
-		while (s[i] != c && s[i] != '\0')
+		if (str[i] != '\0' && str[i] != charset)
+			count++;
+		while (str[i] != '\0' && str[i] != charset)
 			i++;
 	}
-	return (word);
+	return (count + 1);
 }
 
-static int	find_words(char const *s, char c, int i)
+void	word_length(const char *str, char charset, char **tab, int length)
 {
-	if (i == 0 && s[i] != c && s[i] != '\0')
-		return (i);
-	while (s[i] != c && s[i] != '\0')
-		i++;
-	while (s[i] == c && s[i] != '\0')
-		i++;
-	return (i);
+	int	i;
+	int	j;
+	int	len;
+
+	i = 0;
+	j = 0;
+	while (str[i] != '\0')
+	{
+		len = 0;
+		while (str[i] != '\0' && str[i] == charset)
+			i++;
+		while (str[i] != '\0' && str[i] != charset)
+		{
+			i++;
+			len++;
+		}
+		if (j < length)
+		{
+			tab[j] = malloc(sizeof(char) * (len + 1));
+			if (!(tab))
+				return ;
+			j++;
+		}
+	}
 }
 
-static int	length_words(char const *s, char c, int i)
+void	word_write(const char *str, char charset, char **tab, int length)
 {
-	int		length;
+	int	i;
+	int	j;
+	int	k;
 
-	length = 0;
-	while (s[i + length] != c && s[i + length] != '\0')
-		length++;
-	return (length);
+	i = 0;
+	j = 0;
+	while (str[i] != '\0')
+	{
+		k = 0;
+		while (str[i] != '\0' && str[i] == charset)
+			i++;
+		while (str[i] != '\0' && str[i] != charset)
+		{
+			tab[j][k] = str[i];
+			k++;
+			i++;
+		}
+		if (j < length)
+		{
+			tab[j][k] = '\0';
+			j++;
+		}
+	}
+	tab[j] = 0;
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(const char *s, char c)
 {
-	int		i;
-	int		y;
-	int		size;
-	int		init;
 	char	**tab;
+	int		len;
 
-	if (s == NULL)
+	len = word_count(s, c);
+	tab = malloc(sizeof(char *) * len);
+	if (!(tab))
 		return (NULL);
-	i = -1;
-	init = 0;
-	size = count_words(s, c);
-	if (!(tab = malloc(sizeof(char *) * (size + 1))))
-		return (NULL);
-	while (++i < size && s[i] != '\0')
-	{
-		init = find_words(s, c, init);
-		y = 0;
-		if (!(tab[i] = (char *)malloc(sizeof(char) * length_words(s, c, init))))
-			return (NULL);
-		while (s[init] != '\0' && s[init] != c)
-			tab[i][y++] = s[init++];
-		tab[i][y] = '\0';
-	}
-	tab[i] = NULL;
+	word_length(s, c, tab, len - 1);
+	word_write(s, c, tab, len - 1);
 	return (tab);
 }

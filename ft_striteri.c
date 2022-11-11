@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:48:25 by hel-kame          #+#    #+#             */
-/*   Updated: 2022/11/10 13:46:19 by hel-kame         ###   ########.fr       */
+/*   Created: 2022/11/07 14:48:36 by hel-kame          #+#    #+#             */
+/*   Updated: 2022/11/10 12:03:28 by hel-kame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	size_t	i;
-	size_t	j;
+	char	*str;
 
 	i = 0;
-	j = 0;
-	while (dst[i] != '\0')
-		i++;
-	if (size > i + 1)
+	if (s == NULL || f == NULL)
+		return (NULL);
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!(str))
+		return (NULL);
+	while (s[i] != '\0')
 	{
-		while (src[j] != '\0' && i + j < size - 1)
-		{
-			dst[i + j] = src[j];
-			j++;
-		}
-		dst[i + j] = '\0';
+		str[i] = f(i, s[i]);
+		i++;
 	}
-	if (size >= i)
-		return (i + ft_strlen(src));
-	return (ft_strlen(src) + size);
+	str[i] = '\0';
+	return (str);
 }
