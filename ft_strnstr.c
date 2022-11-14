@@ -6,7 +6,7 @@
 /*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:48:58 by hel-kame          #+#    #+#             */
-/*   Updated: 2022/11/11 18:08:41 by hel-kame         ###   ########.fr       */
+/*   Updated: 2022/11/12 18:23:02 by hel-kame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	{
 		progress = 0;
 		while (progress + i < len
-		&& needle[progress] == haystack[progress + i])
+			&& needle[progress] == haystack[progress + i])
 		{
 			if (needle[progress + 1] == '\0')
 				return ((char *)&haystack[i]);
@@ -34,10 +34,4 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		i++;
 	}
 	return (0);
-}
-
-int main(void)
-{
-	ft_strnstr(NULL, "bonjour", 0);
-	strnstr(NULL, "bonjour", 0);
 }

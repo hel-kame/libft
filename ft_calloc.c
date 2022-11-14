@@ -6,7 +6,7 @@
 /*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:29:19 by hel-kame          #+#    #+#             */
-/*   Updated: 2022/11/11 14:43:33 by hel-kame         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:00:25 by hel-kame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*ptr;
+	void	*ptr;
 	size_t	i;
 
 	i = 0;
-	ptr = malloc(nmemb * size);
-	if (!(ptr))
+	if (nmemb == 0 || size == 0 || size != (size * nmemb) / nmemb)
 		return (NULL);
-	while (i < size)
+	ptr = malloc(nmemb * size);
+	if (!ptr)
+		return (NULL);
+	while (i < size * nmemb)
 	{
-		ptr[i] = 0;
+		((char *)ptr)[i] = 0;
 		i++;
 	}
 	return (ptr);

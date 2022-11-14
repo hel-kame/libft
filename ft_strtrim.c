@@ -6,20 +6,20 @@
 /*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:49:15 by hel-kame          #+#    #+#             */
-/*   Updated: 2022/11/10 11:29:56 by hel-kame         ###   ########.fr       */
+/*   Updated: 2022/11/12 18:22:02 by hel-kame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	is_in_set(char c, char const *set)
+int	is_charset(char c, char const *charset)
 {
 	int	i;
 
 	i = 0;
-	while (set[i] != '\0')
+	while (charset[i] != '\0')
 	{
-		if (c == set[i])
+		if (c == charset[i])
 			return (1);
 		i++;
 	}
@@ -36,16 +36,16 @@ char	*ft_strtrim(char const *s, char const *set)
 	i = 0;
 	y = 0;
 	length = 0;
-	str = malloc(length + 2);
-	if (!(str))
-		return (NULL);
-	while (is_in_set(s[i], set) && s[i] != '\0')
+	while (s[i] != '\0' && is_charset(s[i], set))
 		i++;
 	while (s[i + length])
 		length++;
-	while ((is_in_set(s[i + length], set) || !s[i + length]) && length > 0)
+	while ((is_charset(s[i + (length - 1)], set)) && length > 0)
 		length--;
-	while (y <= length)
+	str = malloc(sizeof(char) * length + 1);
+	if (!(str))
+		return (NULL);
+	while (y < length)
 	{
 		str[y] = s[i + y];
 		y++;

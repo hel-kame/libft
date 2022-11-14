@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:49:10 by hel-kame          #+#    #+#             */
-/*   Updated: 2022/11/08 19:13:19 by hel-kame         ###   ########.fr       */
+/*   Created: 2022/11/13 18:58:20 by hel-kame          #+#    #+#             */
+/*   Updated: 2022/11/13 19:19:23 by hel-kame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,24 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*str;
 
 	i = 0;
+	if (start >= ft_strlen(s))
+	{
+		str = malloc(1);
+		if (!str)
+			return (NULL);
+		str[i] = '\0';
+		return (str);
+	}
 	if (s == NULL)
 		return (NULL);
-	str = malloc(sizeof(char) * (len + 1));
-	if (!(str))
+	if (len <= ft_strlen(s) - start)
+		str = (char *)malloc(sizeof(char) * (len + 1));
+	else
+		str = (char *)malloc(sizeof(char) * (ft_strlen(s) - start) + 1);
+	if (!str)
 		return (NULL);
-	while (i < len)
-	{
-		str[i] = s[start + i];
-		i++;
-	}
+	while (start < ft_strlen(s) && i < len)
+		str[i++] = s[start++];
 	str[i] = '\0';
 	return (str);
 }
