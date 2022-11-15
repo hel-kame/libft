@@ -6,27 +6,13 @@
 /*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:36:27 by hel-kame          #+#    #+#             */
-/*   Updated: 2022/11/07 16:09:44 by hel-kame         ###   ########.fr       */
+/*   Updated: 2022/11/15 18:07:41 by hel-kame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	is_charset(const char *charset, char c)
-{
-	int	i;
-
-	i = 0;
-	while (charset[i] != '\0')
-	{
-		if (charset[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	word_count(const char *str, char charset)
+static int	word_count(const char *str, char charset)
 {
 	int	i;
 	int	count;
@@ -45,7 +31,18 @@ int	word_count(const char *str, char charset)
 	return (count + 1);
 }
 
-void	word_length(const char *str, char charset, char **tab, int length)
+static void	freeforall(char **tab, int i)
+{
+	while (i >= 0)
+	{
+		free(tab[i]);
+		i--;
+	}
+	free(tab);
+	return ;
+}
+
+static void	word_length(const char *str, char charset, char **tab, int length)
 {
 	int	i;
 	int	j;
@@ -67,13 +64,13 @@ void	word_length(const char *str, char charset, char **tab, int length)
 		{
 			tab[j] = malloc(sizeof(char) * (len + 1));
 			if (!(tab))
-				return ;
+				freeforall(tab, j - 1);
 			j++;
 		}
 	}
 }
 
-void	word_write(const char *str, char charset, char **tab, int length)
+static void	word_write(const char *str, char charset, char **tab, int length)
 {
 	int	i;
 	int	j;

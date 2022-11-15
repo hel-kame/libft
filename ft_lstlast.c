@@ -6,19 +6,19 @@
 /*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:02:37 by hel-kame          #+#    #+#             */
-/*   Updated: 2022/11/14 16:05:39 by hel-kame         ###   ########.fr       */
+/*   Updated: 2022/11/15 11:25:11 by hel-kame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *last)
+t_list	*ft_lstlast(t_list *lst)
 {
-	while (last != NULL)
+	while (lst != NULL)
 	{
-		if (last->next == NULL)
-			return (last);
-		last = last->next;
+		if (lst->next == NULL)
+			return (lst);
+		lst = lst->next;
 	}
-	return (last);
+	return (lst);
 }

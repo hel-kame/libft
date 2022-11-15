@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:17:32 by hel-kame          #+#    #+#             */
-/*   Updated: 2022/11/15 16:58:32 by hel-kame         ###   ########.fr       */
+/*   Created: 2022/11/15 16:53:36 by hel-kame          #+#    #+#             */
+/*   Updated: 2022/11/15 17:54:21 by hel-kame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	int	i;
-	int	val;
-	int	neg;
-
-	i = 0;
-	val = 0;
-	neg = 0;
-	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-')
-		neg = 1;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	while ((str[i] != '\0') && (str[i] >= '0' && str[i] <= '9'))
+	while (lst != NULL)
 	{
-		val *= 10;
-		val += str[i] - '0';
-		i++;
+		(*f)(lst->content);
+		lst = lst->next;
 	}
-	if (neg == 1)
-		return (-val);
-	else
-		return (val);
 }

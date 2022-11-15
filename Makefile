@@ -6,7 +6,7 @@
 #    By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 14:49:59 by hel-kame          #+#    #+#              #
-#    Updated: 2022/11/14 18:16:22 by hel-kame         ###   ########.fr        #
+#    Updated: 2022/11/15 17:46:26 by hel-kame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,13 +43,15 @@ SRC =	ft_atoi.c		\
 		ft_putnbr_fd.c	\
 		ft_putstr_fd.c	\
 		ft_strmapi.c	\
-		ft_striteri.c	\
 
 BONUS =	ft_lstnew.c			\
 		ft_lstadd_front.c	\
 		ft_lstsize.c		\
 		ft_lstlast.c		\
 		ft_lstadd_back.c	\
+		ft_lstdelone.c		\
+		ft_lstclear.c		\
+		ft_lstiter.c		\
 
 OBJ = $(SRC:.c=.o)
 

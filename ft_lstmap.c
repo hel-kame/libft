@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:17:32 by hel-kame          #+#    #+#             */
-/*   Updated: 2022/11/15 16:58:32 by hel-kame         ###   ########.fr       */
+/*   Created: 2022/11/15 17:56:18 by hel-kame          #+#    #+#             */
+/*   Updated: 2022/11/15 19:02:15 by hel-kame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_atoi(const char *str)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int	i;
-	int	val;
-	int	neg;
+	t_list	*src;
+	t_list	*elem;
+	t_list	*last;
 
-	i = 0;
-	val = 0;
-	neg = 0;
-	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-')
-		neg = 1;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	while ((str[i] != '\0') && (str[i] >= '0' && str[i] <= '9'))
+	src = lst;
+	elem = NULL;
+	if (!lst)
+		return (NULL);
+	while (src != NULL)
 	{
-		val *= 10;
-		val += str[i] - '0';
-		i++;
-	}
-	if (neg == 1)
-		return (-val);
-	else
-		return (val);
+		last = ft_lstnew((*f)(elem->content));
+		if (!last)
+			return (elem);
+		last = elem->new;
+		return ()
 }
