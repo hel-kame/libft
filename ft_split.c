@@ -6,7 +6,7 @@
 /*   By: hel-kame <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:36:27 by hel-kame          #+#    #+#             */
-/*   Updated: 2022/11/15 18:07:41 by hel-kame         ###   ########.fr       */
+/*   Updated: 2022/11/16 11:33:42 by hel-kame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	word_count(const char *str, char charset)
 	return (count + 1);
 }
 
-static void	freeforall(char **tab, int i)
+static int	free_tab(char **tab, int i)
 {
 	while (i >= 0)
 	{
@@ -39,10 +39,10 @@ static void	freeforall(char **tab, int i)
 		i--;
 	}
 	free(tab);
-	return ;
+	return (-1);
 }
 
-static void	word_length(const char *str, char charset, char **tab, int length)
+static int	word_length(const char *str, char charset, char **tab, int length)
 {
 	int	i;
 	int	j;
@@ -64,10 +64,11 @@ static void	word_length(const char *str, char charset, char **tab, int length)
 		{
 			tab[j] = malloc(sizeof(char) * (len + 1));
 			if (!(tab))
-				freeforall(tab, j - 1);
+				return (free_tab(tab, j - 1));
 			j++;
 		}
 	}
+	return (0);
 }
 
 static void	word_write(const char *str, char charset, char **tab, int length)
@@ -107,7 +108,8 @@ char	**ft_split(const char *s, char c)
 	tab = malloc(sizeof(char *) * len);
 	if (!(tab))
 		return (NULL);
-	word_length(s, c, tab, len - 1);
+	if (word_length(s, c, tab, len - 1) == -1)
+		return (NULL);
 	word_write(s, c, tab, len - 1);
 	return (tab);
 }
